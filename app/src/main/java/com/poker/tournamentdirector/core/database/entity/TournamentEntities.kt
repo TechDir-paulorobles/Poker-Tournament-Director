@@ -21,15 +21,15 @@ data class SeasonEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
     @ColumnInfo(name = "start_date") val startDate: LocalDate? = null,
-    @ColumnInfo(name = "inscription_fee_cents") val inscriptionFeeCents: Long =
-        TournamentBusinessRules.DEFAULT_INSCRIPTION_FEE_CENTS,
-    @ColumnInfo(name = "buy_in_cents") val buyInCents: Long =
-        TournamentBusinessRules.DEFAULT_BUY_IN_CENTS,
-    @ColumnInfo(name = "rebuy_cents") val rebuyCents: Long =
-        TournamentBusinessRules.DEFAULT_REBUY_CENTS,
-    @ColumnInfo(name = "add_on_cents") val addOnCents: Long =
-        TournamentBusinessRules.DEFAULT_ADD_ON_CENTS,
-    @ColumnInfo(name = "bounty_cents") val bountyCents: Long = 0,
+    @ColumnInfo(name = "inscription_fee_dollars") val inscriptionFeeDollars: Long =
+        TournamentBusinessRules.DEFAULT_INSCRIPTION_FEE_DOLLARS,
+    @ColumnInfo(name = "buy_in_dollars") val buyInDollars: Long =
+        TournamentBusinessRules.DEFAULT_BUY_IN_DOLLARS,
+    @ColumnInfo(name = "rebuy_dollars") val rebuyDollars: Long =
+        TournamentBusinessRules.DEFAULT_REBUY_DOLLARS,
+    @ColumnInfo(name = "add_on_dollars") val addOnDollars: Long =
+        TournamentBusinessRules.DEFAULT_ADD_ON_DOLLARS,
+    @ColumnInfo(name = "bounty_dollars") val bountyDollars: Long = 0,
     @ColumnInfo(name = "scheduled_date_count") val scheduledDateCount: Int =
         TournamentBusinessRules.DEFAULT_SEASON_DATES,
     @ColumnInfo(name = "is_active") val isActive: Boolean = true,
@@ -108,7 +108,7 @@ data class SeasonPlayerRegistrationEntity(
     @ColumnInfo(name = "season_id") val seasonId: Long,
     @ColumnInfo(name = "player_id") val playerId: Long,
     @ColumnInfo(name = "registration_number") val registrationNumber: Int = 0,
-    @ColumnInfo(name = "inscription_paid_cents") val inscriptionPaidCents: Long = 0,
+    @ColumnInfo(name = "inscription_paid_Dollars") val inscriptionPaidDollars: Long = 0,
     @ColumnInfo(name = "is_payout_eligible") val isPayoutEligible: Boolean = true,
     @ColumnInfo(name = "joined_at") val joinedAt: Instant = Instant.now(),
 )
@@ -230,7 +230,7 @@ data class NightActionEventEntity(
     @ColumnInfo(name = "player_id") val playerId: Long,
     @ColumnInfo(name = "target_player_id") val targetPlayerId: Long? = null,
     val action: ActionType,
-    @ColumnInfo(name = "amount_cents") val amountCents: Long = 0,
+    @ColumnInfo(name = "amount_Dollars") val amountDollars: Long = 0,
     @ColumnInfo(name = "is_bounty_segment") val isBountySegment: Boolean = false,
     @ColumnInfo(name = "elimination_reason") val eliminationReason: EliminationReason? = null,
     @ColumnInfo(name = "metadata_json") val metadataJson: String? = null,
@@ -311,8 +311,8 @@ data class NightResultEntity(
     @ColumnInfo(name = "player_id") val playerId: Long,
     val place: Int,
     val points: Int = 0,
-    @ColumnInfo(name = "payout_cents") val payoutCents: Long = 0,
-    @ColumnInfo(name = "bounty_payout_cents") val bountyPayoutCents: Long = 0,
+    @ColumnInfo(name = "payout_Dollars") val payoutDollars: Long = 0,
+    @ColumnInfo(name = "bounty_payout_Dollars") val bountyPayoutDollars: Long = 0,
     @ColumnInfo(name = "player_kind") val playerKind: PlayerKind = PlayerKind.League,
     @ColumnInfo(name = "is_payout_eligible") val isPayoutEligible: Boolean = true,
 )
@@ -353,7 +353,7 @@ data class SeasonStandingEntity(
     val rebuys: Int = 0,
     @ColumnInfo(name = "add_ons") val addOns: Int = 0,
     @ColumnInfo(name = "season_rank") val seasonRank: Int = 0,
-    @ColumnInfo(name = "season_payout_cents") val seasonPayoutCents: Long = 0,
+    @ColumnInfo(name = "season_payout_Dollars") val seasonPayoutDollars: Long = 0,
     @ColumnInfo(name = "player_kind") val playerKind: PlayerKind = PlayerKind.League,
     @ColumnInfo(name = "is_payout_eligible") val isPayoutEligible: Boolean = true,
 )
@@ -392,7 +392,7 @@ data class BountyEventEntity(
     @ColumnInfo(name = "night_id") val nightId: Long,
     @ColumnInfo(name = "bounty_player_id") val bountyPlayerId: Long,
     @ColumnInfo(name = "collected_by_player_id") val collectedByPlayerId: Long,
-    @ColumnInfo(name = "amount_cents") val amountCents: Long = 0,
+    @ColumnInfo(name = "amount_Dollars") val amountDollars: Long = 0,
     @ColumnInfo(name = "created_at") val createdAt: Instant = Instant.now(),
 )
 
@@ -424,8 +424,8 @@ data class BountyLedgerEntity(
     @ColumnInfo(name = "player_id") val playerId: Long,
     @ColumnInfo(name = "bounties_won") val bountiesWon: Int = 0,
     @ColumnInfo(name = "bounties_lost") val bountiesLost: Int = 0,
-    @ColumnInfo(name = "amount_won_cents") val amountWonCents: Long = 0,
-    @ColumnInfo(name = "amount_lost_cents") val amountLostCents: Long = 0,
+    @ColumnInfo(name = "amount_won_Dollars") val amountWonDollars: Long = 0,
+    @ColumnInfo(name = "amount_lost_Dollars") val amountLostDollars: Long = 0,
 )
 
 @Entity(
@@ -462,9 +462,9 @@ data class GuestParticipationEntity(
     @ColumnInfo(name = "night_id") val nightId: Long,
     @ColumnInfo(name = "guest_player_id") val guestPlayerId: Long,
     @ColumnInfo(name = "replacing_player_id") val replacingPlayerId: Long? = null,
-    @ColumnInfo(name = "buy_in_cents") val buyInCents: Long = 0,
-    @ColumnInfo(name = "rebuys_cents") val rebuysCents: Long = 0,
-    @ColumnInfo(name = "add_on_cents") val addOnCents: Long = 0,
+    @ColumnInfo(name = "buy_in_dollars") val buyInDollars: Long = 0,
+    @ColumnInfo(name = "rebuys_dollars") val rebuysDollars: Long = 0,
+    @ColumnInfo(name = "add_on_dollars") val addOnDollars   : Long = 0,
     @ColumnInfo(name = "points_earned") val pointsEarned: Int = 0,
     val place: Int? = null,
     @ColumnInfo(name = "created_at") val createdAt: Instant = Instant.now(),
